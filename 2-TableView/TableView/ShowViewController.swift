@@ -69,8 +69,8 @@ class ShowViewController: UIViewController {
         view.addSubview(lblCast)
         y += lblCast.frame.size.height
         
-        let lblCastMembers = UILabel(frame: CGRect(x: padding, y: y, width: width, height: 22))
-        view.addSubview(lblCastMembers)
+        
+        
         
         var castString = ""
         for castMember in self.show.cast {
@@ -81,8 +81,20 @@ class ShowViewController: UIViewController {
             }
         }
         
+        let castStr = NSString(string: castString)
+        let castBounds = castStr.boundingRectWithSize(
+            CGSizeMake(width, 500),
+            options: .UsesLineFragmentOrigin,
+            attributes: [NSFontAttributeName:font!],
+            context: nil)
+
+        let lblCastMembers = UILabel(frame: CGRect(x: padding, y: y, width: width, height: castBounds.size.height))
+        view.addSubview(lblCastMembers)
+
         print("CAST: \(castString)")
         lblCastMembers.text = castString
+        lblCastMembers.numberOfLines = 0
+        lblCastMembers.lineBreakMode = .ByWordWrapping
         lblCastMembers.textColor = .whiteColor()
         lblCastMembers.textAlignment = .Center
         lblCastMembers.font = font
