@@ -36,17 +36,17 @@ class ShowViewController: UIViewController {
         showImage.image = UIImage(named: self.show.image)
         view.addSubview(showImage)
         
+        let padding = CGFloat(20)
+        let width = frame.size.width-2*padding
         
         let font = UIFont(name: "Arial", size: 16)
-        
         let str = NSString(string: self.show.summary)
-        
         var bounds = str.boundingRectWithSize(
-            CGSizeMake(frame.size.width-40, 500),
+            CGSizeMake(width, 500),
             options: .UsesLineFragmentOrigin,
             attributes: [NSFontAttributeName:font!],
             context: nil)
-        bounds.origin.x = 20
+        bounds.origin.x = padding
         bounds.origin.y = 240
         
         
@@ -60,6 +60,32 @@ class ShowViewController: UIViewController {
         summaryLabel.text = self.show.summary
         view.addSubview(summaryLabel)
         
+        var y = summaryLabel.frame.origin.y+summaryLabel.frame.size.height+padding
+        let lblCast = UILabel(frame: CGRect(x: padding, y: y, width: width, height: 22))
+        lblCast.textAlignment = .Center
+        lblCast.textColor = .whiteColor()
+        lblCast.font = UIFont.boldSystemFontOfSize(18)
+        lblCast.text = "Cast"
+        view.addSubview(lblCast)
+        y += lblCast.frame.size.height
+        
+        let lblCastMembers = UILabel(frame: CGRect(x: padding, y: y, width: width, height: 22))
+        view.addSubview(lblCastMembers)
+        
+        var castString = ""
+        for castMember in self.show.cast {
+            castString += castMember
+            let index = self.show.cast.indexOf(castMember)
+            if (index != self.show.cast.count-1){
+                castString += ", "
+            }
+        }
+        
+        print("CAST: \(castString)")
+        lblCastMembers.text = castString
+        lblCastMembers.textColor = .whiteColor()
+        lblCastMembers.textAlignment = .Center
+        lblCastMembers.font = font
         
         self.view = view
     }
