@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class Venue: NSObject {
+class Venue: NSObject, MKAnnotation {
     var name = ""
     var location: Dictionary<String, AnyObject>?
     var address = ""
@@ -16,6 +17,19 @@ class Venue: NSObject {
     var state = ""
     var latitude: Double?
     var longitude: Double?
+    
+    // MARK: - MKAnnotation Overrides:
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2DMake(self.latitude!, self.longitude!)
+    }
+    
+    var title: String? {
+        return self.name
+    }
+    
+    var subtitle: String? {
+        return self.address
+    }
     
     func populate(venueInfo: Dictionary<String, AnyObject>){
         if let _name = venueInfo["name"] as? String {

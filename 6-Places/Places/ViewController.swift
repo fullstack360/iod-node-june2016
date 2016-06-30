@@ -43,9 +43,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Map",
+            style: .Plain,
+            target: self,
+            action: #selector(ViewController.showMapView)
+        )
+        
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func showMapView(){
+        print("showMapView")
+        let mapView = MapViewController()
+        mapView.currentLocation = self.locationManager.location
+        mapView.venueList = self.venueList
+        self.navigationController?.pushViewController(mapView, animated: true)
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -62,7 +78,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDa
         self.venueList.removeAll() // clear venue list
 
         return true
-        
     }
 
     
@@ -86,7 +101,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDa
         cell.textLabel?.text = venue.name+": \(venue.latitude!),\(venue.longitude!)"
         cell.detailTextLabel?.text = venue.address+", "+venue.city+", "+venue.state
         return cell
-
     }
     
     

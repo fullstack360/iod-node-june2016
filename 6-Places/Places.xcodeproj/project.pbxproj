@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C0C15521D21F09D007A6182 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C15511D21F09D007A6182 /* Venue.swift */; };
+		0C3E486B1D249B8E004E8C41 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E486A1D249B8E004E8C41 /* MapViewController.swift */; };
 		0C9A788D1D21E31200EC6804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9A788C1D21E31200EC6804 /* AppDelegate.swift */; };
 		0C9A788F1D21E31200EC6804 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9A788E1D21E31200EC6804 /* ViewController.swift */; };
 		0C9A78921D21E31200EC6804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C9A78901D21E31200EC6804 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		02453581C16991727789CDAC /* Pods_Places.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Places.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C0C15511D21F09D007A6182 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		0C3E486A1D249B8E004E8C41 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		0C9A78891D21E31200EC6804 /* Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Places.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9A788C1D21E31200EC6804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C9A788E1D21E31200EC6804 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				0C0C15501D21F068007A6182 /* models */,
 				0C9A788C1D21E31200EC6804 /* AppDelegate.swift */,
 				0C9A788E1D21E31200EC6804 /* ViewController.swift */,
+				0C3E486A1D249B8E004E8C41 /* MapViewController.swift */,
 				0C9A78901D21E31200EC6804 /* Main.storyboard */,
 				0C9A78931D21E31200EC6804 /* Assets.xcassets */,
 				0C9A78951D21E31200EC6804 /* LaunchScreen.storyboard */,
@@ -224,6 +227,7 @@
 				0C9A788F1D21E31200EC6804 /* ViewController.swift in Sources */,
 				0C0C15521D21F09D007A6182 /* Venue.swift in Sources */,
 				0C9A788D1D21E31200EC6804 /* AppDelegate.swift in Sources */,
+				0C3E486B1D249B8E004E8C41 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
