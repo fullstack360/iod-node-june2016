@@ -12,20 +12,34 @@ import Alamofire
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     @IBOutlet var postsTable: UITableView!
-    var posts = Array<Dictionary<String, AnyObject>>()
+    var posts = Array<Post>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let searchField = UITextField(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 32))
+        searchField.autocorrectionType = .No
         searchField.delegate = self
         searchField.backgroundColor = .redColor()
         self.postsTable.tableHeaderView = searchField
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(ViewController.imageDownloadedNotification(_:)),
+            name: "ImageDownloaded",
+            object: nil
+        )
+    }
+    
+    func imageDownloadedNotification(notification: NSNotification){
+        print("imageDownloadedNotification")
+        
+        self.postsTable.reloadData()
+        
     }
     
     func fetchInstagramPosts(username: String){
-        
-        
         let url = "https://www.instagram.com/"+username.lowercaseString+"/media/"
         print("\(url)")
         
@@ -36,7 +50,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     print("fetchInstagramPosts: \(items)")
                     
                     for postInfo in items {
-                        self.posts.append(postInfo)
+                        let post = Post()
+                        post.populate(postInfo)
+                        self.posts.append(post)
                     }
                     
                     self.postsTable.reloadData()
@@ -54,9 +70,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        print("textFieldShouldReturn: \(textField.text!)")
         
         self.fetchInstagramPosts(textField.text!)
-        
-        
-        
         return true
     }
     
@@ -65,21 +78,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let post = self.posts[indexPath.row]
-        let caption = post["caption"] as? Dictionary<String, AnyObject>
-        
         
         let cellId = "cellId"
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellId){
-            cell.textLabel?.text = caption!["text"] as? String
+            cell.textLabel?.text = post.captionText
+            if (post.imageUrl?.characters.count == 0){
+                return cell
+            }
+            
+            if (post.image != nil){
+                cell.imageView?.image = post.image
+                return cell
+            }
+            
+            post.fetchImage()
             return cell
         }
 
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
-        cell.textLabel?.text = caption!["text"] as? String
+        cell.textLabel?.text = post.captionText
+        if (post.imageUrl?.characters.count == 0){
+            return cell
+        }
+        
+        if (post.image != nil){
+            cell.imageView?.image = post.image
+            return cell
+        }
+        
+        post.fetchImage()
         return cell
-
     }
 
     override func didReceiveMemoryWarning() {
