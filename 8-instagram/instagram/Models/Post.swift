@@ -34,7 +34,6 @@ class Post: NSObject {
             
             if let img = UIImage(data: data!) {
                 self.image = img
-//                print("Image Downloaded!")
                 
                 let notification = NSNotification(name:"ImageDownloaded", object:nil)
                 let notificationCenter = NSNotificationCenter.defaultCenter()

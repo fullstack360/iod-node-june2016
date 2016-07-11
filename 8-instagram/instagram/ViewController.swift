@@ -77,26 +77,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return self.posts.count
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 88
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let post = self.posts[indexPath.row]
-        
         let cellId = "cellId"
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellId){
-            cell.textLabel?.text = post.captionText
-            if (post.imageUrl?.characters.count == 0){
-                return cell
-            }
-            
-            if (post.image != nil){
-                cell.imageView?.image = post.image
-                return cell
-            }
-            
-            post.fetchImage()
-            return cell
+            return self.configureCell(cell, indexPath: indexPath)
         }
 
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
+        return self.configureCell(cell, indexPath: indexPath)
+    }
+    
+    func configureCell(cell:UITableViewCell, indexPath:NSIndexPath) -> UITableViewCell {
+        let post = self.posts[indexPath.row]
         cell.textLabel?.text = post.captionText
         if (post.imageUrl?.characters.count == 0){
             return cell
