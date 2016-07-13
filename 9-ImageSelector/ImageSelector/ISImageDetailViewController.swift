@@ -10,7 +10,7 @@ import UIKit
 
 class ISImageDetailViewController: UIViewController {
     
-    var selectedImage: UIImage!
+    var selectedImage: ISImage!
     
     override func loadView() {
         let frame = UIScreen.mainScreen().bounds
@@ -18,12 +18,12 @@ class ISImageDetailViewController: UIViewController {
         view.backgroundColor = .redColor()
         
         let width = frame.size.width
-        let scale = width/self.selectedImage.size.width
-        let height = scale*self.selectedImage.size.height
+        let scale = width/self.selectedImage.image!.size.width
+        let height = scale*self.selectedImage.image!.size.height
         
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 120, width: width, height: height))
-        imageView.image = self.selectedImage
+        imageView.image = self.selectedImage.image
         view.addSubview(imageView)
         
         self.view = view

@@ -11,7 +11,7 @@ import UIKit
 class ISViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var imagesTable: UITableView!
-    var imagesArray = Array<UIImage>()
+    var imagesArray = Array<ISImage>()
     
     override func loadView() {
         let frame = UIScreen.mainScreen().bounds
@@ -67,12 +67,13 @@ class ISViewController: UIViewController, UITableViewDataSource, UITableViewDele
         print("didFinishPickingMediaWithInfo: \(info)")
         
         if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.imagesArray.append(selectedImage)
+            let image = ISImage()
+            image.image = selectedImage
+            image.caption = "Default Caption"
+            self.imagesArray.append(image)
             self.imagesTable.reloadData()
             picker.dismissViewControllerAnimated(true, completion: nil)
-            
         }
-        
     }
 
     
@@ -85,18 +86,19 @@ class ISViewController: UIViewController, UITableViewDataSource, UITableViewDele
         let _image = imagesArray[indexPath.row]
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellId){
-            cell.textLabel?.text = "\(indexPath.row)"
-            cell.imageView?.image = _image
+            cell.textLabel?.text = _image.caption
+            cell.imageView?.image = _image.image
             return cell
         }
         
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
-        cell.textLabel?.text = "\(indexPath.row)"
-        cell.imageView?.image = _image
+        cell.textLabel?.text = _image.caption
+        cell.imageView?.image = _image.image
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         let _image = imagesArray[indexPath.row]
         let imageDetailVc = ISImageDetailViewController()
         imageDetailVc.selectedImage = _image

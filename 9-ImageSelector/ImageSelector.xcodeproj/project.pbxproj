@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C19F2921D36F3D4006C2ACB /* ISImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C19F2911D36F3D4006C2ACB /* ISImage.swift */; };
 		0C5A536E1D346082003B5FC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5A536D1D346082003B5FC9 /* AppDelegate.swift */; };
 		0C5A53751D346082003B5FC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C5A53741D346082003B5FC9 /* Assets.xcassets */; };
 		0C5A53781D346082003B5FC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C5A53761D346082003B5FC9 /* LaunchScreen.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C19F2911D36F3D4006C2ACB /* ISImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISImage.swift; sourceTree = "<group>"; };
 		0C5A536A1D346082003B5FC9 /* ImageSelector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSelector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C5A536D1D346082003B5FC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C5A53741D346082003B5FC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -35,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C19F2901D36F3C4006C2ACB /* models */ = {
+			isa = PBXGroup;
+			children = (
+				0C19F2911D36F3D4006C2ACB /* ISImage.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		0C5A53611D346082003B5FC9 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +64,7 @@
 		0C5A536C1D346082003B5FC9 /* ImageSelector */ = {
 			isa = PBXGroup;
 			children = (
+				0C19F2901D36F3C4006C2ACB /* models */,
 				0C5A536D1D346082003B5FC9 /* AppDelegate.swift */,
 				0C5A537F1D34615D003B5FC9 /* ISViewController.swift */,
 				0C5A53811D3471D0003B5FC9 /* ISImageDetailViewController.swift */,
@@ -137,6 +148,7 @@
 				0C5A53801D34615D003B5FC9 /* ISViewController.swift in Sources */,
 				0C5A536E1D346082003B5FC9 /* AppDelegate.swift in Sources */,
 				0C5A53821D3471D0003B5FC9 /* ISImageDetailViewController.swift in Sources */,
+				0C19F2921D36F3D4006C2ACB /* ISImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +290,7 @@
 				0C5A537E1D346082003B5FC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
