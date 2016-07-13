@@ -37,6 +37,11 @@ class ISViewController: UIViewController, UITableViewDataSource, UITableViewDele
         )
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.imagesTable.reloadData()
+    }
+    
     func selectPhotoSource(){
         let actionSheet = UIAlertController(
             title: "Select Image Source",
