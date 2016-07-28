@@ -9,10 +9,13 @@
 import UIKit
 import Alamofire
 
-class StartupViewController: UIViewController {
+class StartupViewController: UIViewController, UITextFieldDelegate {
     
     var startup: Startup!
     var startupImage: UIImageView!
+    var founderTextField: UITextField!
+    var cityTextField: UITextField!
+    var sharesTextField: UITextField!
     var imageTextField: UITextField!
     
     override func loadView() {
@@ -26,13 +29,38 @@ class StartupViewController: UIViewController {
         view.addSubview(self.startupImage)
         
         var y = self.startupImage.frame.origin.y+self.startupImage.frame.size.height+20
-        self.imageTextField = UITextField(frame: CGRect(x: 20, y: y, width: frame.size.width-40, height: 32))
-        self.imageTextField.placeholder = "image name"
-        self.imageTextField.borderStyle = .RoundedRect
-        self.imageTextField.autocapitalizationType = .None
-        self.imageTextField.autocorrectionType = .No
-        view.addSubview(self.imageTextField)
-        y += self.imageTextField.frame.size.height+20
+        
+        let fields = [
+            ["placeholder":"Founder", "property":"founderTextField"],
+            ["placeholder":"City", "property":"cityTextField"],
+            ["placeholder":"Shares", "property":"sharesTextField"],
+            ["placeholder":"Image", "property":"imageTextField"]
+        ]
+        
+        for i in 0..<fields.count {
+            let fieldInfo = fields[i]
+            let field = UITextField(frame: CGRect(x: 20, y: y, width: frame.size.width-40, height: 32))
+            field.delegate = self
+            field.placeholder = fieldInfo["placeholder"]
+            let prop = fieldInfo["property"]
+            self.setValue(field, forKey: prop!)
+            
+            field.borderStyle = .RoundedRect
+            field.autocapitalizationType = .None
+            field.autocorrectionType = .No
+            
+            let propertyName = field.placeholder?.lowercaseString
+            if (propertyName == "shares"){
+                field.text = String(self.startup.shares!)
+            }
+            else {
+                field.text = self.startup.valueForKeyPath(propertyName!) as? String
+            }
+            
+            view.addSubview(field)
+            y += field.frame.size.height+20
+        }
+        
         
         let btnSubmit = UIButton(type: .Custom)
         btnSubmit.backgroundColor = .blueColor()
@@ -42,7 +70,6 @@ class StartupViewController: UIViewController {
         btnSubmit.addTarget(self, action: #selector(StartupViewController.updateStartup), forControlEvents: .TouchUpInside)
         view.addSubview(btnSubmit)
         
-        
         self.view = view
     }
 
@@ -51,22 +78,38 @@ class StartupViewController: UIViewController {
         self.title = self.startup.name
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        print("textFieldShouldReturn: ")
+        self.updateStartup()
+        return true
+    }
+    
     func updateStartup(){
         var startupInfo = Dictionary<String, AnyObject>()
         startupInfo["_id"] = self.startup._id!
-        startupInfo["image"] = self.imageTextField.text!
+        startupInfo["city"] = self.cityTextField.text!
+        startupInfo["founder"] = self.founderTextField.text!
+        startupInfo["shares"] = self.sharesTextField.text!
+        
+        let img = self.imageTextField.text!
+        if (img != self.startup.image){ // user selected new image
+            self.startup.imageData = nil
+            startupInfo["image"] = img
+        }
 
         print("updateStartup: \(startupInfo.description)")
         let url = "https://ff-startups.herokuapp.com/api/startup/"+self.startup._id!
         Alamofire.request(.PUT, url, parameters:startupInfo).responseJSON { response in
             if let json = response.result.value as? Dictionary<String, AnyObject>{
-                print("\(json)")
                 
+                if let result = json["result"] as? Dictionary<String, AnyObject>{
+                    print("\(result)")
+                    
+                    self.startup.populate(result)
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
             }
-            
         }
-        
-
     }
 
     override func didReceiveMemoryWarning() {

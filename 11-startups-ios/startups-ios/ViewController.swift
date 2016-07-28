@@ -16,6 +16,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .Add,
+            target: self,
+            action:  #selector(ViewController.createStartup)
+        )
         
         let notificationCtr = NSNotificationCenter.defaultCenter()
         notificationCtr.addObserver(
@@ -44,6 +49,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.startupsTable.reloadData()
+    }
+    
+    func createStartup(){
+        print("createStartup: ")
+        
+        let createStartupVc = CreateStartupViewController()
+        self.presentViewController(createStartupVc, animated: true, completion: nil)
+        
     }
     
     func imageDownloadNotifcation(){
