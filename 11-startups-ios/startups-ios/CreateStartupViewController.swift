@@ -77,11 +77,32 @@ class CreateStartupViewController: UIViewController, UITextFieldDelegate {
         ]
         
         var startupProps = Dictionary<String, AnyObject>() // pkg to server
+        var missingValue: String? = nil
         for field in fields {
+            let value = field.text!
             let property = field.placeholder?.lowercaseString
+            
+            if (value.characters.count == 0){
+                missingValue = property
+                break
+            }
+            
             startupProps[property!] = field.text!
         }
         
+        // if there is a missingValue, do NOT proceed:
+        if (missingValue != nil){
+            let msg = "Please include a "+missingValue!
+            let alert = UIAlertController(
+                title: "Missing Value",
+                message: msg,
+                preferredStyle: .Alert
+            )
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
         
         let url = "https://ff-startups.herokuapp.com/api/startup"
         Alamofire.request(.POST, url, parameters: startupProps).responseJSON{ response in
@@ -95,7 +116,7 @@ class CreateStartupViewController: UIViewController, UITextFieldDelegate {
                     let notification = NSNotification(
                         name: "StartupCreated",
                         object: nil,
-                        userInfo: nil
+                        userInfo: ["startup":startup]
                     )
 
                     let notificationCtr = NSNotificationCenter.defaultCenter()
@@ -103,13 +124,8 @@ class CreateStartupViewController: UIViewController, UITextFieldDelegate {
                     
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
-                
             }
-            
-            
         }
-
-        
     }
 
     override func didReceiveMemoryWarning() {

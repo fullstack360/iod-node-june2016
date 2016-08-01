@@ -47,7 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     
                     for startupInfo in results {
                         let startup = Startup()
-                         startup.populate(startupInfo)
+                        startup.populate(startupInfo)
                         self.startupsList.append(startup)
                     }
                     
@@ -72,23 +72,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func reloadStartups(note: NSNotification){
-        let url = "https://ff-startups.herokuapp.com/api/startup"
-        Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
-            
-            if let json = response.result.value as? Dictionary<String, AnyObject>{
-                print("\(json)")
-                
-                if let results = json["results"] as? Array<Dictionary<String, AnyObject>>{
-                    
-                    self.startupsList.removeAll()
-                    for startupInfo in results {
-                        let startup = Startup()
-                        startup.populate(startupInfo)
-                        self.startupsList.append(startup)
-                    }
-                    
-                    self.startupsTable.reloadData()
-                }
+        if let userinfo = note.userInfo {
+            if let startup = userinfo["startup"] as? Startup{
+                self.startupsList.append(startup)
+                self.startupsTable.reloadData()
             }
         }
     }
