@@ -30,6 +30,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             object: nil
         )
         
+        notificationCtr.addObserver(
+            self,
+            selector: #selector(ViewController.reloadStartups(_:)),
+            name: "StartupCreated",
+            object: nil
+        )
         
         let url = "https://ff-startups.herokuapp.com/api/startup"
         Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
@@ -63,6 +69,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let createStartupVc = CreateStartupViewController()
         self.presentViewController(createStartupVc, animated: true, completion: nil)
         
+    }
+    
+    func reloadStartups(note: NSNotification){
+        let url = "https://ff-startups.herokuapp.com/api/startup"
+        Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+            
+            if let json = response.result.value as? Dictionary<String, AnyObject>{
+                print("\(json)")
+                
+                if let results = json["results"] as? Array<Dictionary<String, AnyObject>>{
+                    
+                    self.startupsList.removeAll()
+                    for startupInfo in results {
+                        let startup = Startup()
+                        startup.populate(startupInfo)
+                        self.startupsList.append(startup)
+                    }
+                    
+                    self.startupsTable.reloadData()
+                }
+            }
+        }
     }
     
     func imageDownloadNotifcation(){

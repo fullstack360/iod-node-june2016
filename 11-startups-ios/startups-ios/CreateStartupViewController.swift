@@ -7,13 +7,56 @@
 //
 
 import UIKit
+import Alamofire
 
-class CreateStartupViewController: UIViewController {
+class CreateStartupViewController: UIViewController, UITextFieldDelegate {
+    
+    var nameTextField: UITextField!
+    var founderTextField: UITextField!
+    var cityTextField: UITextField!
+    var sharesTextField: UITextField!
+    var imageTextField: UITextField!    
     
     override func loadView() {
         let frame = UIScreen.mainScreen().bounds
         let view = UIView(frame: frame)
         view.backgroundColor = .redColor()
+        
+        var y = CGFloat(120)
+        
+        let fields = [
+            ["placeholder":"Name", "property":"nameTextField"],
+            ["placeholder":"Founder", "property":"founderTextField"],
+            ["placeholder":"City", "property":"cityTextField"],
+            ["placeholder":"Shares", "property":"sharesTextField"],
+            ["placeholder":"Image", "property":"imageTextField"]
+        ]
+        
+        for i in 0..<fields.count {
+            let fieldInfo = fields[i]
+            let field = UITextField(frame: CGRect(x: 20, y: y, width: frame.size.width-40, height: 32))
+            
+            field.delegate = self
+            field.placeholder = fieldInfo["placeholder"]
+            let prop = fieldInfo["property"]
+            self.setValue(field, forKey: prop!)
+            
+            field.borderStyle = .RoundedRect
+            field.autocapitalizationType = .None
+            field.autocorrectionType = .No
+            
+            view.addSubview(field)
+            y += field.frame.size.height+20
+        }
+        
+        let btnSubmit = UIButton(type: .Custom)
+        btnSubmit.backgroundColor = .blueColor()
+        btnSubmit.frame = CGRect(x: 20, y: y, width: frame.size.width-40, height: 44)
+        btnSubmit.setTitle("Create", forState: .Normal)
+        btnSubmit.setTitleColor(.whiteColor(), forState: .Normal)
+        btnSubmit.addTarget(self, action: #selector(CreateStartupViewController.createStartup), forControlEvents: .TouchUpInside)
+        view.addSubview(btnSubmit)
+
         
         self.view = view
     }
@@ -21,23 +64,58 @@ class CreateStartupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    }
+    
+    func createStartup(){
+        
+        let fields = [
+            self.nameTextField,
+            self.founderTextField,
+            self.cityTextField,
+            self.sharesTextField,
+            self.imageTextField
+        ]
+        
+        var startupProps = Dictionary<String, AnyObject>() // pkg to server
+        for field in fields {
+            let property = field.placeholder?.lowercaseString
+            startupProps[property!] = field.text!
+        }
+        
+        
+        let url = "https://ff-startups.herokuapp.com/api/startup"
+        Alamofire.request(.POST, url, parameters: startupProps).responseJSON{ response in
+            if let json = response.result.value as? Dictionary<String, AnyObject>{
+                if let result = json["result"] as? Dictionary<String, AnyObject>{
+                    print("createStartup: \(result)")
+                    
+                    let startup = Startup()
+                    startup.populate(result)
+                    
+                    let notification = NSNotification(
+                        name: "StartupCreated",
+                        object: nil,
+                        userInfo: nil
+                    )
+
+                    let notificationCtr = NSNotificationCenter.defaultCenter()
+                    notificationCtr.postNotification(notification)
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                
+            }
+            
+            
+        }
+
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
