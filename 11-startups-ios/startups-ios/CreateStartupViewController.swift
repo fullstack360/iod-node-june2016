@@ -82,7 +82,7 @@ class CreateStartupViewController: UIViewController, UITextFieldDelegate {
             let value = field.text!
             let property = field.placeholder?.lowercaseString
             
-            if (value.characters.count == 0){
+            if (value.characters.count == 0 && property != "image"){
                 missingValue = property
                 break
             }

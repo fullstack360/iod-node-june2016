@@ -21,6 +21,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             target: self,
             action:  #selector(ViewController.createStartup)
         )
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Account",
+            style: .Plain,
+            target: self,
+            action: nil
+        )
+
         
         let notificationCtr = NSNotificationCenter.defaultCenter()
         notificationCtr.addObserver(
