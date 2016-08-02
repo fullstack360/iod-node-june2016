@@ -26,7 +26,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             title: "Account",
             style: .Plain,
             target: self,
-            action: nil
+            action: #selector(ViewController.registerUser)
         )
 
         
@@ -76,6 +76,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let createStartupVc = CreateStartupViewController()
         self.presentViewController(createStartupVc, animated: true, completion: nil)
+        
+    }
+    
+    func registerUser(){
+        
+        let registerVc = RegisterUserViewController()
+        let navCtr = UINavigationController(rootViewController: registerVc)
+        self.presentViewController(navCtr, animated: true, completion: nil)
         
     }
     

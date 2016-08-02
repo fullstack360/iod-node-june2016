@@ -15,6 +15,8 @@
 		0CC58A921D46C42E00D43D1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CC58A911D46C42E00D43D1C /* Assets.xcassets */; };
 		0CC58A951D46C42E00D43D1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC58A931D46C42E00D43D1C /* LaunchScreen.storyboard */; };
 		0CEFF1CA1D497DB300249C2A /* CreateStartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEFF1C91D497DB300249C2A /* CreateStartupViewController.swift */; };
+		0CFB83731D501974000D2FEE /* RegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB83721D501974000D2FEE /* RegisterUserViewController.swift */; };
+		0CFB83751D502C02000D2FEE /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB83741D502C02000D2FEE /* Profile.swift */; };
 		5B73C9AB10620D955D60FAAF /* Pods_startups_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5485E6FEA4A5BAC5D85789BD /* Pods_startups_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		0CC58A941D46C42E00D43D1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0CC58A961D46C42E00D43D1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CEFF1C91D497DB300249C2A /* CreateStartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateStartupViewController.swift; sourceTree = "<group>"; };
+		0CFB83721D501974000D2FEE /* RegisterUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterUserViewController.swift; sourceTree = "<group>"; };
+		0CFB83741D502C02000D2FEE /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		207607C63D91830609C1740F /* Pods-startups-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-startups-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-startups-ios/Pods-startups-ios.release.xcconfig"; sourceTree = "<group>"; };
 		5485E6FEA4A5BAC5D85789BD /* Pods_startups_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_startups_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A9E751879CD272BA96FA3C4 /* Pods-startups-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-startups-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-startups-ios/Pods-startups-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -50,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				0C70A7DD1D46C8B500895DB2 /* Startup.swift */,
+				0CFB83741D502C02000D2FEE /* Profile.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -78,6 +83,7 @@
 				0C70A7DC1D46C8A700895DB2 /* models */,
 				0CC58A8A1D46C42E00D43D1C /* AppDelegate.swift */,
 				0CC58A8C1D46C42E00D43D1C /* ViewController.swift */,
+				0CFB83721D501974000D2FEE /* RegisterUserViewController.swift */,
 				0CEFF1C91D497DB300249C2A /* CreateStartupViewController.swift */,
 				0C70A7DF1D46D86700895DB2 /* StartupViewController.swift */,
 				0CC58A8E1D46C42E00D43D1C /* Main.storyboard */,
@@ -230,7 +236,9 @@
 				0C70A7E01D46D86700895DB2 /* StartupViewController.swift in Sources */,
 				0CC58A8D1D46C42E00D43D1C /* ViewController.swift in Sources */,
 				0CEFF1CA1D497DB300249C2A /* CreateStartupViewController.swift in Sources */,
+				0CFB83751D502C02000D2FEE /* Profile.swift in Sources */,
 				0C70A7DE1D46C8B500895DB2 /* Startup.swift in Sources */,
+				0CFB83731D501974000D2FEE /* RegisterUserViewController.swift in Sources */,
 				0CC58A8B1D46C42E00D43D1C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
